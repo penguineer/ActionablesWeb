@@ -20,6 +20,40 @@ div.error .status {
     font-weight: bold;
 }
 
+#assignees div {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+#assignees div:first-child {
+    margin-left: 0px;
+}
+
+#assignees div:last-child {
+    margin-right: 0px;
+}
+
+#assignees div.unused {
+    filter: grayscale(100%) opacity(50%);
+}
+
+div.user::before {
+    content: '👤';
+    padding-right: 10px;
+}
+
+div.group::before {
+    content: '👥';
+    padding-right: 10px;
+}
+
+div.group2 {
+    font-style: italic;
+}
+
+
 div.actionable {
     border: 1px solid black;
     margin-bottom: 2em;
@@ -52,6 +86,7 @@ div.actionable .title {
     <div id="tracker"></div>
 
     <h2>Actionables</h2>
+    <div id="assignees"></div>
     <div id="actionables"></div>
 
 
@@ -77,6 +112,33 @@ div.actionable .title {
 <tr><th>User Name: </th><td>`+json.tracker.user_name+`</td></tr>
 </table>
             `);
+        }
+
+        let assignees = {}
+        populateAssignees = function(json) {
+            assignees = {}
+
+            assignees[json.tracker.user_local_id] = {
+                    name: json.tracker.user_name,
+                    type: "user"
+                };
+
+            for (var id in json.groups) {
+                assignees[id] = {
+                        name: json.groups[id].name,
+                        type: "group"
+                    };
+
+            }
+
+            $("#assignees").empty();
+            for (id in assignees) {
+                let div = $("<div></div>").html(assignees[id].name);
+                div.addClass(assignees[id].type);
+                div.addClass("unused");
+                $("#assignees").append(div);
+                assignees[id]['div'] = div;
+            }
         }
 
         populateActionables = function(json) {
@@ -106,6 +168,7 @@ div.actionable .title {
 
         populateResult = function(json) {
             populateTrackerInfo(json)
+            populateAssignees(json)
             populateActionables(json)
         }
 
