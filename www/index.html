@@ -39,20 +39,20 @@ div.error .status {
     filter: grayscale(100%) opacity(50%);
 }
 
-div.user::before {
+.unassigned::before {
+    content: '👻';
+    padding-right: 10px;
+}
+
+.user::before {
     content: '👤';
     padding-right: 10px;
 }
 
-div.group::before {
+.group::before {
     content: '👥';
     padding-right: 10px;
 }
-
-div.group2 {
-    font-style: italic;
-}
-
 
 div.actionable {
     border: 1px solid black;
@@ -66,6 +66,11 @@ div.actionable .title {
     font-size: large;
     padding-bottom: 1em;
 }
+
+div.actionable .meta {
+    font-size: small;
+}
+
 </style>
 </head>
 <body>
@@ -118,6 +123,11 @@ div.actionable .title {
         populateAssignees = function(json) {
             assignees = {}
 
+            assignees[0] = {
+                    name: "unassigned",
+                    type: "unassigned"
+                };
+
             assignees[json.tracker.user_local_id] = {
                     name: json.tracker.user_name,
                     type: "user"
@@ -155,14 +165,37 @@ div.actionable .title {
                 let a = json.actionable[i];
                 let issue = issues[a];
 
-                $("#actionables").append(`
-<div class="actionable"><div class="title">
+
+                let title = $(`
+    <div class="title">
         <span><a href="`+issue.uri+`" target="_new">#`+issue.local_id+`</a></span>
         <span>`+issue.subject+`</span>
     </div>
-    <div class="details">`+md.render(issue.description)+`</div>
-</div>
-                `)
+                `);
+
+                let meta = $('<div class="meta"></div>')
+
+                let author_id = issue.assigned_to ? issue.assigned_to : 0;
+
+                {
+                    let author = $("<span></span>");
+                    author.html(assignees[author_id]['name']);
+                    author.addClass(assignees[author_id].type);
+
+                    meta.append(author);
+
+                    assignees[author_id].div.removeClass("unused");
+                }
+
+                let desc = $('<div class="details"></div>');
+                desc.html(md.render(issue.description));
+
+                let actionable = $('<div class="actionable"></div>');
+                actionable.append(title);
+                actionable.append(meta);
+                actionable.append(desc);
+
+                $("#actionables").append(actionable);
             }
         }
 
