@@ -131,6 +131,10 @@ $( document ).ready(function() {
     $("#callparams :button").click(function(event) {
         let url = $("#callparams [name='tr_uri']").val()
         let apikey = $("#callparams [name='tr_apikey']").val()
+
+        var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
+        window.history.pushState({}, '', newurl);
+
         loadActionables(url, apikey);
 
         event.preventDefault();
