@@ -8,6 +8,18 @@
 body {
     font-family: sans-serif;
 }
+
+div.error {
+    background: red;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+div.error .status {
+    font-weight: bold;
+}
+
 div.actionable {
     border: 1px solid black;
     margin-bottom: 2em;
@@ -32,6 +44,8 @@ div.actionable .title {
         <input type="text" name="tr_apikey" /></br>
         <button type="submit">Load</button>
     </form>
+
+    <div id="errors"></div>
 
 
     <h2>Tracker</h2>
@@ -95,7 +109,21 @@ div.actionable .title {
             populateActionables(json)
         }
 
+        displayError = function(xhr, status, errorThrown) {
+            $("#errors").prepend(`
+<div class="error">
+    <span class="status">`+status+" "+xhr.status+`:</span>
+    <span class="message">`+errorThrown+`</span>
+</div>
+            `);
+        }
+
+        clearErrors = function() {
+            $("#errors").empty();
+        }
+
         loadActionables = function(url, apikey) {
+            clearErrors();
             $.ajax({
                 url: "https://redmine-ac.pingtech.de/v0/redmine/actionables",
                 data: {
@@ -109,6 +137,7 @@ div.actionable .title {
                 populateResult(json);
             })
             .fail(function(xhr, status, errorThrown) {
+                displayError(xhr, status, errorThrown);
                 console.log( "Error: " + errorThrown );
                 console.log( "Status: " + status );
                 console.dir( xhr );
