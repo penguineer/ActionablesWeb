@@ -10,7 +10,7 @@ body {
 }
 
 div.error {
-    background: red;
+    background: #ed6a5a;
     color: white;
     padding: 10px;
     margin-bottom: 10px;
@@ -37,6 +37,10 @@ div.error .status {
 
 #assignees div.unused {
     filter: grayscale(100%) opacity(50%);
+}
+
+#assignees div.active {
+    background: #d3d35d;
 }
 
 .unassigned::before {
@@ -125,18 +129,21 @@ div.actionable .meta {
 
             assignees[0] = {
                     name: "unassigned",
-                    type: "unassigned"
+                    type: "unassigned",
+                    active: false
                 };
 
             assignees[json.tracker.user_local_id] = {
                     name: json.tracker.user_name,
-                    type: "user"
+                    type: "user",
+                    active: true
                 };
 
             for (var id in json.groups) {
                 assignees[id] = {
                         name: json.groups[id].name,
-                        type: "group"
+                        type: "group",
+                        active: false
                     };
 
             }
@@ -146,15 +153,19 @@ div.actionable .meta {
                 let div = $("<div></div>").html(assignees[id].name);
                 div.addClass(assignees[id].type);
                 div.addClass("unused");
+                if (assignees[id].active) {
+                    div.addClass("active");
+                }
                 $("#assignees").append(div);
                 assignees[id]['div'] = div;
             }
         }
 
+        let issues = {}
         populateActionables = function(json) {
             let md = new Remarkable();
 
-            let issues = {}
+            issues = {}
             for (var id in json.issues) {
                 issues[id] = json.issues[id];
             }
@@ -194,15 +205,35 @@ div.actionable .meta {
                 actionable.append(title);
                 actionable.append(meta);
                 actionable.append(desc);
+                actionable.hide();
 
                 $("#actionables").append(actionable);
+                issues[a].div = actionable;
             }
+
+            updateActionableVisibility();
         }
 
         populateResult = function(json) {
             populateTrackerInfo(json)
             populateAssignees(json)
             populateActionables(json)
+        }
+
+        updateActionableVisibility = function() {
+            for (var i in issues) {
+                let issue = issues[i];
+                if (! issue.div)
+                    continue;
+
+                let assignee_id = issue.assigned_to ? issue.assigned_to : 0;
+
+                if (assignees[assignee_id].active) {
+                    issue.div.show("slow");
+                } else {
+                    issue.div.hide("slow");
+                }
+            }
         }
 
         displayError = function(xhr, status, errorThrown) {
