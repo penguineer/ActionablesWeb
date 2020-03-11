@@ -70,12 +70,28 @@ div.actionable {
 div.actionable .title {
     font-weight: bold;
     font-size: large;
-    padding-bottom: 1em;
+    padding-bottom: 5px;
 }
 
 div.actionable .meta {
     font-size: small;
+    padding-bottom: 10px;
 }
+
+div.actionable .details {
+    border-top: 1px solid black;
+}
+
+div.actionable a {
+    display: inline-block;
+    border-radius: 5px;
+    width: 3em;
+    text-align: center;
+    color: white;
+    background: black;
+    text-decoration: none;
+}
+
 
 </style>
 </head>
@@ -196,6 +212,8 @@ div.actionable .meta {
                 let a = json.actionable[i];
                 let issue = issues[a];
 
+                let actionable = $('<div class="actionable"></div>');
+
 
                 let title = $(`
     <div class="title">
@@ -203,8 +221,10 @@ div.actionable .meta {
         <span>`+issue.subject+`</span>
     </div>
                 `);
+                actionable.append(title);
 
                 let meta = $('<div class="meta"></div>')
+                actionable.append(meta);
 
                 let author_id = issue.assigned_to ? issue.assigned_to : 0;
 
@@ -218,13 +238,12 @@ div.actionable .meta {
                     assignees[author_id].div.removeClass("unused");
                 }
 
-                let desc = $('<div class="details"></div>');
-                desc.html(md.render(issue.description));
+                if (issue.description.length) {
+                    let desc = $('<div class="details"></div>');
+                    desc.html(md.render(issue.description));
+                    actionable.append(desc);
+                }
 
-                let actionable = $('<div class="actionable"></div>');
-                actionable.append(title);
-                actionable.append(meta);
-                actionable.append(desc);
                 actionable.hide();
 
                 $("#actionables").append(actionable);
