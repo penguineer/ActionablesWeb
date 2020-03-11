@@ -42,19 +42,47 @@ h2 {
     flex-grow: 1;
 }
 
+#tracker-box th {
+    text-align: right;
+    padding-right: 1em;
+    font-weight: normal;
+    font-size: small;
+}
+
+#tracker-box a {
+    color: inherit;
+    text-decoration: none;
+}
+
 #param-box {
     float: right;
 }
 
-#param-box form label {
+#param-box form > div {
     display: inline-block;
-    width: 5em;
 }
 
-#param-box form input[type=text] {
+#param-box label {
+    display: inline-block;
+    width: 5em;
+    text-align: right;
+    padding-right: 1em;
+    font-weight: normal;
+    font-size: small;
+}
+
+#param-box input[type=text] {
     display: inline-block;
     width: 25em;
+    background: #BDD9BF;
 }
+
+#param-box #load {
+    font-size: xx-large;
+    display: inline;
+    cursor: pointer;
+}
+
 
 div.error {
     background: #ed6a5a;
@@ -74,6 +102,7 @@ div.error .status {
     border-radius: 10px;
     margin: 10px;
     margin-bottom: 2em;
+    cursor: pointer;
 }
 
 #assignees div:first-child {
@@ -85,7 +114,7 @@ div.error .status {
 }
 
 #assignees div.unused {
-    filter: grayscale(100%) opacity(25%);
+    filter: grayscale(100%) opacity(50%);
     background: inherit;
 }
 
@@ -161,11 +190,17 @@ div.actionable a {
 <div id="param-box" class="meta-box">
     <h2>Call Parameters</h2>
     <form id="callparams">
-        <label for="tr_uri">URI:</label>
-        <input type="text" name="tr_uri" /></br>
-        <label for="tr_apikey">API Key:</label>
-        <input type="text" name="tr_apikey" /></br>
-        <button type="submit">Load</button>
+        <div>
+            <div>
+                <label for="tr_uri">URI:</label>
+                <input type="text" name="tr_uri" />
+            </div>
+            <div>
+                <label for="tr_apikey">API Key:</label>
+                <input type="text" name="tr_apikey" />
+            </div>
+        </div>
+        <div id="load">▶️</div>
     </form>
 </div>
 </div>
@@ -384,7 +419,7 @@ $( document ).ready(function() {
 
     loadActionables(url, apikey);
 
-    $("#callparams :button").click(function(event) {
+    $("#load").click(function(event) {
         let url = $("#callparams [name='tr_uri']").val()
         let apikey = $("#callparams [name='tr_apikey']").val()
 
