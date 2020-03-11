@@ -9,6 +9,38 @@ body {
     font-family: sans-serif;
 }
 
+h2 {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom-right-radius: 10px;
+    display: inline-block;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    margin-top: 0;
+}
+
+#meta {
+    display: flex;
+}
+
+.meta-box {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 10px;
+    margin-right: 2em;
+    margin-bottom: 1em;
+}
+
+#param-box form label {
+    display: inline-block;
+    width: 5em;
+}
+
+#param-box form input[type=text] {
+    display: inline-block;
+    width: 25em;
+}
+
 div.error {
     background: #ed6a5a;
     color: white;
@@ -97,6 +129,8 @@ div.actionable a {
 </head>
 <body>
 
+<div id="meta">
+<div id="param-box" class="meta-box">
     <h2>Call Parameters</h2>
     <form id="callparams">
         <label for="tr_uri">URI:</label>
@@ -105,12 +139,14 @@ div.actionable a {
         <input type="text" name="tr_apikey" /></br>
         <button type="submit">Load</button>
     </form>
-
-    <div id="errors"></div>
-
-
+</div>
+<div id="tracker-box" class="meta-box">
     <h2>Tracker</h2>
     <div id="tracker"></div>
+</div>
+</div>
+
+    <div id="errors"></div>
 
     <h2>Actionables</h2>
     <div id="assignees"></div>
