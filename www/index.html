@@ -9,7 +9,13 @@ body {
     font-family: sans-serif;
     color: #4C4C47;
     background: #4C4C47;
-    margin: 10px;
+}
+
+#page {
+    min-width: 800px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h2 {
@@ -95,6 +101,10 @@ div.error .status {
     font-weight: bold;
 }
 
+#assignees {
+    text-align: center;
+}
+
 #assignees div {
     display: inline-block;
     padding: 10px;
@@ -103,6 +113,7 @@ div.error .status {
     margin: 10px;
     margin-bottom: 2em;
     cursor: pointer;
+    font-size: small;
 }
 
 #assignees div:first-child {
@@ -182,6 +193,8 @@ div.actionable a {
 </head>
 <body>
 
+<div id="page">
+
 <div id="meta">
 <div id="tracker-box" class="meta-box">
     <h2>Tracker</h2>
@@ -211,6 +224,8 @@ div.actionable a {
     <h2>Actionables</h2>
     <div id="assignees"></div>
     <div id="actionables"></div>
+</div>
+
 </div>
 
     <script src="jquery-3.4.1.js"></script>
