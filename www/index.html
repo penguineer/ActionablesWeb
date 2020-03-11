@@ -24,7 +24,9 @@ div.error .status {
     display: inline-block;
     padding: 10px;
     border: 1px solid black;
+    border-radius: 10px;
     margin: 10px;
+    margin-bottom: 2em;
 }
 
 #assignees div:first-child {
@@ -156,8 +158,26 @@ div.actionable .meta {
                 if (assignees[id].active) {
                     div.addClass("active");
                 }
+                div.attr("assg", id);
+
                 $("#assignees").append(div);
                 assignees[id]['div'] = div;
+
+                div.click(function(event) {
+                    if (! $(this).hasClass("unused") ){
+                        var assg = div.attr("assg");
+                        assignees[assg].active = ! assignees[assg].active;
+
+                        if (assignees[assg].active)
+                            $(this).addClass("active");
+                        else
+                            $(this).removeClass("active");
+
+                        updateActionableVisibility();
+                    }
+
+                    event.preventDefault();
+                });
             }
         }
 
