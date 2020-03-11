@@ -7,15 +7,18 @@
 
 body {
     font-family: sans-serif;
+    color: #4C4C47;
+    background: #4C4C47;
+    margin: 10px;
 }
 
 h2 {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
     border-bottom-right-radius: 10px;
     display: inline-block;
-    padding-bottom: 10px;
-    padding-right: 20px;
+    padding-left: 5px;
+    padding-right: 10px;
     margin-top: 0;
 }
 
@@ -25,10 +28,22 @@ h2 {
 
 .meta-box {
     display: inline-block;
-    border: 1px solid black;
+    border: 1px solid;
     padding: 10px;
-    margin-right: 2em;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
+    background: #cacedb;
+}
+
+.meta-box + .meta-box {
+    margin-left: 10px;
+}
+
+#tracker-box {
+    flex-grow: 1;
+}
+
+#param-box {
+    float: right;
 }
 
 #param-box form label {
@@ -55,7 +70,7 @@ div.error .status {
 #assignees div {
     display: inline-block;
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid;
     border-radius: 10px;
     margin: 10px;
     margin-bottom: 2em;
@@ -70,11 +85,12 @@ div.error .status {
 }
 
 #assignees div.unused {
-    filter: grayscale(100%) opacity(50%);
+    filter: grayscale(100%) opacity(25%);
+    background: inherit;
 }
 
 #assignees div.active {
-    background: #d3d35d;
+    background: #BDD9BF;
 }
 
 .unassigned::before {
@@ -92,8 +108,14 @@ div.error .status {
     padding-right: 10px;
 }
 
+#actionables-box {
+    background: #cacedb;
+    padding: 10px;
+    border: solid 1px;
+}
+
 div.actionable {
-    border: 1px solid black;
+    border: 1px solid;
     margin-bottom: 2em;
     padding: 10px;
     background: #ffffdd;
@@ -111,7 +133,9 @@ div.actionable .meta {
 }
 
 div.actionable .details {
-    border-top: 1px solid black;
+    border-top: 1px solid;
+    border-top-color: #4C4C47;
+    color: black;
 }
 
 div.actionable a {
@@ -120,7 +144,7 @@ div.actionable a {
     width: 3em;
     text-align: center;
     color: white;
-    background: black;
+    background: #4C4C47;
     text-decoration: none;
 }
 
@@ -130,6 +154,10 @@ div.actionable a {
 <body>
 
 <div id="meta">
+<div id="tracker-box" class="meta-box">
+    <h2>Tracker</h2>
+    <div id="tracker"></div>
+</div>
 <div id="param-box" class="meta-box">
     <h2>Call Parameters</h2>
     <form id="callparams">
@@ -140,18 +168,15 @@ div.actionable a {
         <button type="submit">Load</button>
     </form>
 </div>
-<div id="tracker-box" class="meta-box">
-    <h2>Tracker</h2>
-    <div id="tracker"></div>
-</div>
 </div>
 
     <div id="errors"></div>
 
+<div id="actionables-box">
     <h2>Actionables</h2>
     <div id="assignees"></div>
     <div id="actionables"></div>
-
+</div>
 
     <script src="jquery-3.4.1.js"></script>
     <script src="remarkable.min.js"></script>
