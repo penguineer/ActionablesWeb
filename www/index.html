@@ -148,6 +148,11 @@ div.error .status {
     padding-right: 10px;
 }
 
+.deadline::before {
+    content: '📅';
+    padding-right: 10px;
+}
+
 #actionables-box {
     background: #cacedb;
     padding: 10px;
@@ -186,6 +191,10 @@ div.actionable a {
     color: white;
     background: #4C4C47;
     text-decoration: none;
+}
+
+div.actionable div.meta span + span {
+    margin-left: 30px;
 }
 
 
@@ -347,6 +356,13 @@ div.actionable a {
                     meta.append(author);
 
                     assignees[author_id].div.removeClass("unused");
+                }
+
+                if (issue.deadline) {
+                    let deadline = $("<span></span>")
+                    deadline.addClass("deadline");
+                    deadline.html(issue.deadline)
+                    meta.append(deadline);
                 }
 
                 if (issue.description.length) {
