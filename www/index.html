@@ -7,40 +7,43 @@
 </head>
 <body>
 
-<div id="page">
+    <div id="page">
 
-<div id="meta">
-<div id="tracker-box" class="meta-box">
-    <h2>Tracker</h2>
-    <div id="tracker"></div>
-</div>
-<div id="param-box" class="meta-box">
-    <h2>Call Parameters</h2>
-    <form id="callparams">
-        <div>
-            <div>
-                <label for="tr_uri">URI:</label>
-                <input type="text" name="tr_uri" />
+        <div id="meta">
+
+            <div id="tracker-box" class="meta-box">
+                <h2>Tracker</h2>
+                <div id="tracker"></div>
             </div>
-            <div>
-                <label for="tr_apikey">API Key:</label>
-                <input type="text" name="tr_apikey" />
+
+            <div id="param-box" class="meta-box">
+                <h2>Call Parameters</h2>
+                <form id="callparams">
+                    <div>
+                        <div>
+                            <label for="tr_uri">URI:</label>
+                            <input type="text" name="tr_uri" />
+                        </div>
+                        <div>
+                            <label for="tr_apikey">API Key:</label>
+                            <input type="text" name="tr_apikey" />
+                        </div>
+                    </div>
+                    <div id="load">▶️</div>
+                </form>
             </div>
+
         </div>
-        <div id="load">▶️</div>
-    </form>
-</div>
-</div>
 
-    <div id="errors"></div>
+        <div id="errors"></div>
 
-<div id="actionables-box">
-    <h2>Actionables</h2>
-    <div id="assignees"></div>
-    <div id="actionables"></div>
-</div>
+        <div id="actionables-box">
+            <h2>Actionables</h2>
+            <div id="assignees"></div>
+            <div id="actionables"></div>
+        </div>
 
-</div>
+    </div>
 
     <script src="jquery-3.4.1.js"></script>
     <script src="remarkable.min.js"></script>
