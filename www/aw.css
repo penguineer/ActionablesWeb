@@ -1,0 +1,191 @@
+body {
+    font-family: sans-serif;
+    color: #4C4C47;
+    background: #4C4C47;
+}
+
+#page {
+min-width: 800px;
+max-width: 1000px;
+margin-left: auto;
+margin-right: auto;
+}
+
+h2 {
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-bottom-right-radius: 10px;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 10px;
+    margin-top: 0;
+}
+
+#meta {
+display: flex;
+}
+
+.meta-box {
+    display: inline-block;
+    border: 1px solid;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #cacedb;
+}
+
+.meta-box + .meta-box {
+    margin-left: 10px;
+}
+
+#tracker-box {
+flex-grow: 1;
+}
+
+#tracker-box th {
+text-align: right;
+padding-right: 1em;
+font-weight: normal;
+font-size: small;
+}
+
+#tracker-box a {
+color: inherit;
+text-decoration: none;
+}
+
+#param-box {
+float: right;
+}
+
+#param-box form > div {
+display: inline-block;
+}
+
+#param-box label {
+display: inline-block;
+width: 5em;
+text-align: right;
+padding-right: 1em;
+font-weight: normal;
+font-size: small;
+}
+
+#param-box input[type=text] {
+display: inline-block;
+width: 25em;
+background: #BDD9BF;
+}
+
+#param-box #load {
+font-size: xx-large;
+display: inline;
+cursor: pointer;
+}
+
+
+div.error {
+    background: #ed6a5a;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+div.error .status {
+    font-weight: bold;
+}
+
+#assignees {
+text-align: center;
+}
+
+#assignees div {
+display: inline-block;
+padding: 10px;
+border: 1px solid;
+border-radius: 10px;
+margin: 10px;
+margin-bottom: 2em;
+cursor: pointer;
+font-size: small;
+}
+
+#assignees div:first-child {
+margin-left: 0px;
+}
+
+#assignees div:last-child {
+margin-right: 0px;
+}
+
+#assignees div.unused {
+filter: grayscale(100%) opacity(50%);
+background: inherit;
+}
+
+#assignees div.active {
+background: #BDD9BF;
+}
+
+.unassigned::before {
+    content: '👻';
+    padding-right: 10px;
+}
+
+.user::before {
+    content: '👤';
+    padding-right: 10px;
+}
+
+.group::before {
+    content: '👥';
+    padding-right: 10px;
+}
+
+.deadline::before {
+    content: '📅';
+    padding-right: 10px;
+}
+
+#actionables-box {
+background: #cacedb;
+padding: 10px;
+border: solid 1px;
+}
+
+div.actionable {
+    border: 1px solid;
+    margin-bottom: 2em;
+    padding: 10px;
+    background: #ffffdd;
+}
+
+div.actionable .title {
+    font-weight: bold;
+    font-size: large;
+    padding-bottom: 5px;
+}
+
+div.actionable .meta {
+    font-size: small;
+    padding-bottom: 10px;
+}
+
+div.actionable .details {
+    border-top: 1px solid;
+    border-top-color: #4C4C47;
+    color: black;
+}
+
+div.actionable a {
+    display: inline-block;
+    border-radius: 5px;
+    width: 3em;
+    text-align: center;
+    color: white;
+    background: #4C4C47;
+    text-decoration: none;
+}
+
+div.actionable div.meta span + span {
+    margin-left: 30px;
+}
