@@ -123,7 +123,7 @@ populateActionables = function(json) {
             meta.append(deadline);
         }
 
-        if (issue.description.length) {
+        if (issue.description) {
             let desc = $('<div class="details"></div>');
             desc.html(md.render(issue.description));
             actionable.append(desc);
