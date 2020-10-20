@@ -202,13 +202,13 @@ $( document ).ready(function() {
     let url = urlParam('url');
     let apikey = urlParam('apikey');
 
-    $("#callparams [name='tr_uri']").val(url)
+    $("#callparams [name='tr_redmine']").val(url)
     $("#callparams [name='tr_apikey']").val(apikey)
 
     loadActionables(url, apikey);
 
     $("#load").click(function(event) {
-        let url = $("#callparams [name='tr_uri']").val()
+        let url = $("#callparams [name='tr_redmine']").val()
         let apikey = $("#callparams [name='tr_apikey']").val()
 
         var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
