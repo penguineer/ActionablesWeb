@@ -176,7 +176,7 @@ div.actionable .details {
     color: black;
 }
 
-div.actionable a {
+div.actionable a.issue {
     display: inline-block;
     border-radius: 5px;
     width: 3em;
