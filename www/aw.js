@@ -202,7 +202,7 @@ $( document ).ready(function() {
     let url = urlParam('url');
     let apikey = urlParam('apikey');
 
-    $("#callparams [name='tr_redmine']").val(url)
+    $("#callparams [name='tr_tracker']").val(url)
     $("#callparams [name='tr_apikey']").val(apikey)
 
     loadActionables(url, apikey);
