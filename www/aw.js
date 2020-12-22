@@ -208,7 +208,7 @@ $( document ).ready(function() {
     loadActionables(url, apikey);
 
     $("#load").click(function(event) {
-        let url = $("#callparams [name='tr_redmine']").val()
+        let url = $("#callparams [name='tr_tracker']").val()
         let apikey = $("#callparams [name='tr_apikey']").val()
 
         var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
