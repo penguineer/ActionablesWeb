@@ -63,7 +63,7 @@ display: inline-block;
 
 #param-box label {
 display: inline-block;
-width: 5em;
+width: 6em;
 text-align: right;
 padding-right: 1em;
 font-weight: normal;
@@ -71,6 +71,12 @@ font-size: small;
 }
 
 #param-box input[type=text] {
+display: inline-block;
+width: 25em;
+background: #BDD9BF;
+}
+
+#param-box input[type=password] {
 display: inline-block;
 width: 25em;
 background: #BDD9BF;
@@ -176,7 +182,7 @@ div.actionable .details {
     color: black;
 }
 
-div.actionable a {
+div.actionable a.issue {
     display: inline-block;
     border-radius: 5px;
     width: 3em;

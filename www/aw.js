@@ -95,7 +95,7 @@ populateActionables = function(json) {
 
         let title = $(`
         <div class="title">
-        <span><a href="`+issue.uri+`" target="_new">#`+issue.local_id+`</a></span>
+        <span><a href="`+issue.uri+`" class="issue" target="_new">#`+issue.local_id+`</a></span>
         <span>`+issue.subject+`</span>
         </div>
         `);
@@ -202,7 +202,7 @@ $( document ).ready(function() {
     let url = urlParam('url');
     let apikey = urlParam('apikey');
 
-    $("#callparams [name='tr_redmine']").val(url)
+    $("#callparams [name='tr_tracker']").val(url)
     $("#callparams [name='tr_apikey']").val(apikey)
 
     loadActionables(url, apikey);
