@@ -76,6 +76,12 @@ width: 25em;
 background: #BDD9BF;
 }
 
+#param-box input[type=password] {
+display: inline-block;
+width: 25em;
+background: #BDD9BF;
+}
+
 #param-box #load {
 font-size: xx-large;
 display: inline;
