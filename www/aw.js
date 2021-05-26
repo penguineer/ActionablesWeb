@@ -75,6 +75,79 @@ populateAssignees = function(json) {
     }
 }
 
+let projects = {};
+let projectDivs = {};
+renderProjects = function(json) {
+    projects = {}
+    projectDivs = {}
+
+    for (var id in json.projects) {
+        projects[id] = json.projects[id];
+    }
+
+    for (var pId in projects) {
+        p = projects[pId];
+
+        let pDiv = $('<div class="project"></div>');
+
+        let title = $(`
+            <a href="`+p.uri+`" target="_new"><span class="title">`+p.name+`</span></a>
+        `);
+        pDiv.append(title);
+
+        projectDivs[p.local_id] = pDiv;
+    }
+}
+
+renderActionable = function(issue) {
+    let md = new Remarkable();
+    
+    let actionable = $('<div class="actionable"></div>');
+
+    pDiv = projectDivs[issue.project_local_id];
+    actionable.append(pDiv.clone());
+
+    let title = $(`
+    <div class="title">
+    <span><a href="`+issue.uri+`" class="issue" target="_new">#`+issue.local_id+`</a></span>
+    <span>`+issue.subject+`</span>
+    </div>
+    `);
+    actionable.append(title);
+
+    let meta = $('<div class="meta"></div>')
+    actionable.append(meta);
+
+    let author_id = issue.assigned_to ? issue.assigned_to : 0;
+
+    {
+        let author = $("<span></span>");
+        author.html(assignees[author_id]['name']);
+        author.addClass(assignees[author_id].type);
+
+        meta.append(author);
+
+        assignees[author_id].div.removeClass("unused");
+    }
+
+    if (issue.deadline) {
+        let deadline = $("<span></span>")
+        deadline.addClass("deadline");
+        deadline.html(issue.deadline)
+        meta.append(deadline);
+    }
+
+    if (issue.description) {
+        let desc = $('<div class="details"></div>');
+        desc.html(md.render(issue.description));
+        actionable.append(desc);
+    }
+
+    actionable.hide();
+   
+    return actionable;
+}
+
 let issues = {}
 populateActionables = function(json) {
     let md = new Remarkable();
@@ -90,55 +163,17 @@ populateActionables = function(json) {
         let a = json.actionable[i];
         let issue = issues[a];
 
-        let actionable = $('<div class="actionable"></div>');
-
-
-        let title = $(`
-        <div class="title">
-        <span><a href="`+issue.uri+`" class="issue" target="_new">#`+issue.local_id+`</a></span>
-        <span>`+issue.subject+`</span>
-        </div>
-        `);
-        actionable.append(title);
-
-        let meta = $('<div class="meta"></div>')
-        actionable.append(meta);
-
-        let author_id = issue.assigned_to ? issue.assigned_to : 0;
-
-        {
-            let author = $("<span></span>");
-            author.html(assignees[author_id]['name']);
-            author.addClass(assignees[author_id].type);
-
-            meta.append(author);
-
-            assignees[author_id].div.removeClass("unused");
-        }
-
-        if (issue.deadline) {
-            let deadline = $("<span></span>")
-            deadline.addClass("deadline");
-            deadline.html(issue.deadline)
-            meta.append(deadline);
-        }
-
-        if (issue.description) {
-            let desc = $('<div class="details"></div>');
-            desc.html(md.render(issue.description));
-            actionable.append(desc);
-        }
-
-        actionable.hide();
+        actionable = renderActionable(issue);
+        issues[a].div = actionable;
 
         $("#actionables").append(actionable);
-        issues[a].div = actionable;
     }
 
     updateActionableVisibility();
 }
 
 populateResult = function(json) {
+    renderProjects(json)
     populateTrackerInfo(json)
     populateAssignees(json)
     populateActionables(json)
