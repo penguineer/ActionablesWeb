@@ -104,6 +104,9 @@ renderActionable = function(issue) {
     
     let actionable = $('<div class="actionable"></div>');
 
+    pDiv = projectDivs[issue.project_local_id];
+    actionable.append(pDiv.clone());
+
     let title = $(`
     <div class="title">
     <span><a href="`+issue.uri+`" class="issue" target="_new">#`+issue.local_id+`</a></span>
@@ -161,9 +164,9 @@ populateActionables = function(json) {
         let issue = issues[a];
 
         actionable = renderActionable(issue);
-        
-        $("#actionables").append(actionable);
         issues[a].div = actionable;
+
+        $("#actionables").append(actionable);
     }
 
     updateActionableVisibility();
