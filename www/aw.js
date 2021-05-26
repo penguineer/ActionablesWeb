@@ -75,6 +75,30 @@ populateAssignees = function(json) {
     }
 }
 
+let projects = {};
+let projectDivs = {};
+renderProjects = function(json) {
+    projects = {}
+    projectDivs = {}
+
+    for (var id in json.projects) {
+        projects[id] = json.projects[id];
+    }
+
+    for (var pId in projects) {
+        p = projects[pId];
+
+        let pDiv = $('<div class="project"></div>');
+
+        let title = $(`
+            <a href="`+p.uri+`" target="_new"><span class="title">`+p.name+`</span></a>
+        `);
+        pDiv.append(title);
+
+        projectDivs[p.local_id] = pDiv;
+    }
+}
+
 renderActionable = function(issue) {
     let md = new Remarkable();
     
@@ -146,6 +170,7 @@ populateActionables = function(json) {
 }
 
 populateResult = function(json) {
+    renderProjects(json)
     populateTrackerInfo(json)
     populateAssignees(json)
     populateActionables(json)

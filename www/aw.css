@@ -162,6 +162,8 @@ div.actionable {
     border: 1px solid;
     margin-bottom: 2em;
     padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background: #ffffdd;
 }
 
@@ -195,3 +197,24 @@ div.actionable a.issue {
 div.actionable div.meta span + span {
     margin-left: 30px;
 }
+
+div.actionable div.project {
+    margin-bottom: 10px;
+}
+
+div.actionable div.project a {
+    text-decoration: none;
+}
+
+div.actionable div.project .title {
+    color: grey;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: small;
+}
+
+div.actionable div.project .title::before {
+    content: '📘';
+    padding-right: 10px;
+}
+
