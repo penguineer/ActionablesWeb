@@ -208,10 +208,10 @@ clearErrors = function() {
     $("#errors").empty();
 }
 
-loadActionables = function(url, apikey) {
+loadActionables = function(url, apikey, service) {
     clearErrors();
     $.ajax({
-        url: "https://redmine-ac.pingtech.de/v0/redmine/actionables",
+        url: service,
         data: {
             url: url,
             apikey: apikey
@@ -233,14 +233,17 @@ loadActionables = function(url, apikey) {
     });
 }
 
-$( document ).ready(function() {
+configAvailable = function(config) {
+    const service = config.ACTIONABLES_URL;
+    console.log("Using actionable service at " + service);
+
     let url = urlParam('url');
     let apikey = urlParam('apikey');
 
     $("#callparams [name='tr_tracker']").val(url)
     $("#callparams [name='tr_apikey']").val(apikey)
 
-    loadActionables(url, apikey);
+    loadActionables(url, apikey, service);
 
     $("#load").click(function(event) {
         let url = $("#callparams [name='tr_tracker']").val()
@@ -249,9 +252,17 @@ $( document ).ready(function() {
         var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
         window.history.pushState({}, '', newurl);
 
-        loadActionables(url, apikey);
+        loadActionables(url, apikey, service);
 
         event.preventDefault();
     });
+}
 
+$( document ).ready(function() {
+    // load configuration
+    $.getJSON("/config.json", configAvailable).
+    fail(function(xhr, status, errorThrown) {
+        console.log("Failed to load configuration!");
+        displayError(xhr, status, errorThrown);
+    });
 });
