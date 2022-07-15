@@ -9,5 +9,6 @@ services:
         build: .
         environment:
             PORT: 8080
+            ACTIONABLES_URL: $ACTIONABLES_URL
         ports:
             - $PORT:80
