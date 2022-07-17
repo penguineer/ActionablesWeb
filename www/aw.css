@@ -100,6 +100,21 @@ div.error .status {
     font-weight: bold;
 }
 
+div.notes {
+    background: #c4b2a8;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+div.notes ul {
+  list-style-type: none;
+}
+
+div.notes li {
+    margin-bottom: 1em;
+}
+
 #assignees {
 text-align: center;
 }

@@ -19,6 +19,27 @@ populateTrackerInfo = function(json) {
     `);
 }
 
+populateNotes = function(json) {
+    // leave if there are no notes
+    if ((! ("notes" in json)) ||
+        (Object.keys(json.notes).length == 0)) {
+        return;
+    }
+    
+    let ul = $('<ul></ul>');
+    for (idx in json.notes) {
+        let note = json.notes[idx];
+        console.log(note);
+        let li = $('<li>'+note+'</li>');
+        console.log(li);
+        ul.append(li);
+        console.log(ul);
+    }
+    
+    $("#notes").append(ul);
+    $("#notes").addClass("notes");
+}
+
 let assignees = {}
 populateAssignees = function(json) {
     assignees = {}
@@ -190,6 +211,7 @@ populateActionables = function(json) {
 populateResult = function(json) {
     renderProjects(json)
     populateTrackerInfo(json)
+    populateNotes(json)
     populateAssignees(json)
     populateActionables(json)
 }
