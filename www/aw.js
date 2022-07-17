@@ -43,6 +43,21 @@ populateAssignees = function(json) {
         };
 
     }
+    
+    // create dummy groups for unknown assignees
+    for (var i in json.actionable) {
+        let a = json.actionable[i];
+        let issue = json.issues[a];
+        let author_id = issue.assigned_to ? issue.assigned_to : 0;
+
+        if (! (author_id in assignees)) {
+            assignees[author_id] = {
+                name: "Group " + author_id,
+                type: "group",
+                active: false
+            }
+        }
+    }
 
     $("#assignees").empty();
     for (id in assignees) {
