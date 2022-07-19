@@ -10,13 +10,13 @@ urlParam = function(name){
 }
 
 populateTrackerInfo = function(json) {
-    $("#tracker").html(`
-    <table>
-    <tr><th>Type: </th><td>`+json.tracker.type+`</td></tr>
-    <tr><th>URI: </th><td><a href="`+json.tracker.uri+`" target="_new">`+json.tracker.uri+`</a></td></tr>
-    <tr><th>User Name: </th><td>`+json.tracker.user_name+`</td></tr>
-    </table>
-    `);
+    $("#tracker-type").text(json.tracker.type);
+
+    var tracker_uri = $("#tracker-uri");
+    tracker_uri.attr("href", json.tracker.uri);
+    tracker_uri.text(json.tracker.uri);
+
+    $("#tracker-user-name").text(json.tracker.user_name);
 }
 
 populateNotes = function(json) {
