@@ -336,9 +336,6 @@ configAvailable = function(config) {
         let apikey = $("#callparams [name='tr_apikey']").val()
         populateLinks(url, apikey);
 
-        var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
-        window.history.pushState({}, '', newurl);
-
         loadActionables(url, apikey, service);
 
         event.preventDefault();
