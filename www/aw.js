@@ -272,23 +272,38 @@ loadActionables = function(url, apikey, service) {
 
 setLink = function(type, url) {
     var el = $('#'+type+'-link-url');
+    var cp = $('#'+type+'-link-copy');
 
     if (url) {
         el.attr("href", url);
         el.removeClass("disabled");
+        cp.attr("href", "javascript:copyToClipboard('"+type+"');");
+        cp.css('visibility', 'visible');
     } else {
         el.removeAttr("href");
         el.addClass("disabled");
+        cp.removeAttr("href");
+        cp.css('visibility', 'hidden');
     }
 }
 
+getAbsolutePath = function() {
+    // https://stackoverflow.com/a/2864169/3888050
+    var loc = window.location;
+    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+}
+
+
 populateLinks = function(url, apikey) {
+    const path = getAbsolutePath();
+
     if (url) {
-        var shareLink = '?url='+encodeURIComponent(url);
+        var shareLink = path+'?url='+encodeURIComponent(url);
         setLink('share', shareLink);
 
         if (apikey) {
-            var personalLink = '?url='+encodeURIComponent(url)+'&apikey='+encodeURIComponent(apikey);
+            var personalLink = path+'?url='+encodeURIComponent(url)+'&apikey='+encodeURIComponent(apikey);
             setLink('personal', personalLink);
         } else {
             setLink('personal', null);
@@ -296,6 +311,11 @@ populateLinks = function(url, apikey) {
     } else {
         setLink('share', null);
     }
+}
+
+copyToClipboard = function(type) {
+    var el = $('#'+type+'-link-url');
+    navigator.clipboard.writeText(el.attr("href"));
 }
 
 configAvailable = function(config) {
