@@ -270,12 +270,61 @@ loadActionables = function(url, apikey, service) {
     });
 }
 
+setLink = function(type, url) {
+    var el = $('#'+type+'-link-url');
+    var cp = $('#'+type+'-link-copy');
+
+    if (url) {
+        el.attr("href", url);
+        el.removeClass("disabled");
+        cp.attr("href", "javascript:copyToClipboard('"+type+"');");
+        cp.css('visibility', 'visible');
+    } else {
+        el.removeAttr("href");
+        el.addClass("disabled");
+        cp.removeAttr("href");
+        cp.css('visibility', 'hidden');
+    }
+}
+
+getAbsolutePath = function() {
+    // https://stackoverflow.com/a/2864169/3888050
+    var loc = window.location;
+    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+}
+
+
+populateLinks = function(url, apikey) {
+    const path = getAbsolutePath();
+
+    if (url) {
+        var shareLink = path+'?url='+encodeURIComponent(url);
+        setLink('share', shareLink);
+
+        if (apikey) {
+            var personalLink = path+'?url='+encodeURIComponent(url)+'&apikey='+encodeURIComponent(apikey);
+            setLink('personal', personalLink);
+        } else {
+            setLink('personal', null);
+        }
+    } else {
+        setLink('share', null);
+    }
+}
+
+copyToClipboard = function(type) {
+    var el = $('#'+type+'-link-url');
+    navigator.clipboard.writeText(el.attr("href"));
+}
+
 configAvailable = function(config) {
     const service = config.ACTIONABLES_URL;
     console.log("Using actionable service at " + service);
 
     let url = urlParam('url');
     let apikey = urlParam('apikey');
+    populateLinks(url, apikey);
 
     $("#callparams [name='tr_tracker']").val(url)
     $("#callparams [name='tr_apikey']").val(apikey)
@@ -285,9 +334,7 @@ configAvailable = function(config) {
     $("#load").click(function(event) {
         let url = $("#callparams [name='tr_tracker']").val()
         let apikey = $("#callparams [name='tr_apikey']").val()
-
-        var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
-        window.history.pushState({}, '', newurl);
+        populateLinks(url, apikey);
 
         loadActionables(url, apikey, service);
 
