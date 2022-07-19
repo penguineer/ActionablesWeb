@@ -270,12 +270,41 @@ loadActionables = function(url, apikey, service) {
     });
 }
 
+setLink = function(type, url) {
+    var el = $('#'+type+'-link-url');
+
+    if (url) {
+        el.attr("href", url);
+        el.removeClass("disabled");
+    } else {
+        el.removeAttr("href");
+        el.addClass("disabled");
+    }
+}
+
+populateLinks = function(url, apikey) {
+    if (url) {
+        var shareLink = '?url='+encodeURIComponent(url);
+        setLink('share', shareLink);
+
+        if (apikey) {
+            var personalLink = '?url='+encodeURIComponent(url)+'&apikey='+encodeURIComponent(apikey);
+            setLink('personal', personalLink);
+        } else {
+            setLink('personal', null);
+        }
+    } else {
+        setLink('share', null);
+    }
+}
+
 configAvailable = function(config) {
     const service = config.ACTIONABLES_URL;
     console.log("Using actionable service at " + service);
 
     let url = urlParam('url');
     let apikey = urlParam('apikey');
+    populateLinks(url, apikey);
 
     $("#callparams [name='tr_tracker']").val(url)
     $("#callparams [name='tr_apikey']").val(apikey)
@@ -285,6 +314,7 @@ configAvailable = function(config) {
     $("#load").click(function(event) {
         let url = $("#callparams [name='tr_tracker']").val()
         let apikey = $("#callparams [name='tr_apikey']").val()
+        populateLinks(url, apikey);
 
         var newurl = '?url='+encodeURIComponent(url)+ '&apikey='+encodeURIComponent(apikey);
         window.history.pushState({}, '', newurl);
