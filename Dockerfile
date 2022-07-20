@@ -10,4 +10,4 @@ COPY ./entrypoint.sh /usr/bin/
 COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ./www/ /usr/local/apache2/htdocs/
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT exec entrypoint.sh
