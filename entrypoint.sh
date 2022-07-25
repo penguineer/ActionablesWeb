@@ -1,10 +1,11 @@
 #! /usr/bin/env bash
 
 ROOT=/usr/local/apache2/htdocs/
+CONFIG_TMPL=$ROOT/config.json.template
 CONFIG=$ROOT/config.json
 
 export EXISTING_VARS=$(printenv | awk -F= '{print $1}' | sed 's/^/\$/g' | paste -sd,);
-cat $CONFIG | envsubst $EXISTING_VARS | tee $CONFIG
+cat $CONFIG_TMPL | envsubst $EXISTING_VARS | tee $CONFIG
 
 # Check the config
 
