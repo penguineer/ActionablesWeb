@@ -54,4 +54,4 @@ If possible, please stick to the following guidelines:
 
 ## License
 
-MIT © 2020-2022 Stefan Haun and contributors
+MIT © 2020-2023 Stefan Haun and contributors
