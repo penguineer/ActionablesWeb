@@ -1,8 +1,6 @@
 # Do not forget to create the .env file (see template)
 # before using this container!
 
-version: '2'
-
 services:
     www:
         restart: always

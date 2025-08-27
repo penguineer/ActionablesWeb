@@ -23,19 +23,19 @@ docker run --rm -it \
     mrtux/actionables-web
 ```
 
-### Run with Docker-Compose (Development)
+### Run with Docker Compose (Development)
 
-To run with [docker-compose](https://docs.docker.com/compose/) copy  [`.env.template`](.env.template) to `.env` and edit the necessary variables. Then start with:
+To run with [docker compose](https://docs.docker.com/compose/) copy  [`.env.template`](.env.template) to `.env` and edit the necessary variables. Then start with:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Please note that this compose file will rebuild the image based on the repository. This is helpful during development and not intended for production use.
 
 When done, please don't forget to remove the deployment with
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ## Maintainers
