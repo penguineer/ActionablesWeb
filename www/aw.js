@@ -1,6 +1,6 @@
 // https://www.sitepoint.com/url-parameters-jquery/
 urlParam = function(name){
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results==null){
         return null;
     }
@@ -12,7 +12,7 @@ urlParam = function(name){
 populateTrackerInfo = function(json) {
     $("#tracker-type").text(json.tracker.type);
 
-    var tracker_uri = $("#tracker-uri");
+    const tracker_uri = $("#tracker-uri");
     tracker_uri.attr("href", json.tracker.uri);
     tracker_uri.text(json.tracker.uri);
 
@@ -22,12 +22,12 @@ populateTrackerInfo = function(json) {
 populateNotes = function(json) {
     // leave if there are no notes
     if ((! ("notes" in json)) ||
-        (Object.keys(json.notes).length == 0)) {
+        (Object.keys(json.notes).length === 0)) {
         return;
     }
     
     let ul = $('<ul></ul>');
-    for (idx in json.notes) {
+    for (let idx in json.notes) {
         let note = json.notes[idx];
         console.log(note);
         let li = $('<li>'+note+'</li>');
@@ -35,9 +35,10 @@ populateNotes = function(json) {
         ul.append(li);
         console.log(ul);
     }
-    
-    $("#notes").append(ul);
-    $("#notes").addClass("notes");
+
+    const note = $("#notes");
+    note.append(ul);
+    note.addClass("notes");
 }
 
 let assignees = {}
@@ -56,7 +57,7 @@ populateAssignees = function(json) {
         active: true
     };
 
-    for (var id in json.groups) {
+    for (let id in json.groups) {
         assignees[id] = {
             name: json.groups[id].name,
             type: "group",
@@ -66,7 +67,7 @@ populateAssignees = function(json) {
     }
     
     // create dummy groups for unknown assignees
-    for (var i in json.actionable) {
+    for (let i in json.actionable) {
         let a = json.actionable[i];
         let issue = json.issues[a];
         let author_id = issue.assigned_to ? issue.assigned_to : 0;
@@ -80,8 +81,8 @@ populateAssignees = function(json) {
         }
     }
 
-    $("#assignees").empty();
-    for (id in assignees) {
+    let assg = $("#assignees").empty();
+    for (let id in assignees) {
         let div = $("<div></div>").html(assignees[id].name);
         div.addClass(assignees[id].type);
         div.addClass("unused");
@@ -90,7 +91,7 @@ populateAssignees = function(json) {
         }
         div.attr("assg", id);
 
-        $("#assignees").append(div);
+        assg.append(div);
         assignees[id]['div'] = div;
 
         div.click(function(event) {
@@ -117,14 +118,14 @@ renderProjects = function(json) {
     projects = {}
     projectDivs = {}
 
-    for (var id in json.projects) {
+    for (let id in json.projects) {
         projects[id] = json.projects[id];
     }
 
-    for (var pId in projects) {
-        p = projects[pId];
+    for (let pId in projects) {
+        const p = projects[pId];
 
-        let pDiv = $('<div class="project"></div>');
+        const pDiv = $('<div class="project"></div>');
 
         let title = $(`
             <a href="`+p.uri+`" target="_new"><span class="title">`+p.name+`</span></a>
@@ -140,7 +141,7 @@ renderActionable = function(issue) {
     
     let actionable = $('<div class="actionable"></div>');
 
-    pDiv = projectDivs[issue.project_local_id];
+    const pDiv = projectDivs[issue.project_local_id];
     actionable.append(pDiv.clone());
 
     let title = $(`
@@ -189,20 +190,20 @@ populateActionables = function(json) {
     let md = new Remarkable();
 
     issues = {}
-    for (var id in json.issues) {
+    for (let id in json.issues) {
         issues[id] = json.issues[id];
     }
 
 
     let ul = $("#actionables").empty();
-    for (var i in json.actionable) {
+    for (let i in json.actionable) {
         let a = json.actionable[i];
         let issue = issues[a];
 
-        actionable = renderActionable(issue);
+        const actionable = renderActionable(issue);
         issues[a].div = actionable;
 
-        $("#actionables").append(actionable);
+        ul.append(actionable);
     }
 
     updateActionableVisibility();
@@ -217,8 +218,8 @@ populateResult = function(json) {
 }
 
 updateActionableVisibility = function() {
-    for (var i in issues) {
-        let issue = issues[i];
+    for (let i in issues) {
+        const issue = issues[i];
         if (! issue.div)
             continue;
 
@@ -271,8 +272,8 @@ loadActionables = function(url, apikey, service) {
 }
 
 setLink = function(type, url) {
-    var el = $('#'+type+'-link-url');
-    var cp = $('#'+type+'-link-copy');
+    const el = $('#' + type + '-link-url');
+    const cp = $('#' + type + '-link-copy');
 
     if (url) {
         el.attr("href", url);
@@ -289,8 +290,8 @@ setLink = function(type, url) {
 
 getAbsolutePath = function() {
     // https://stackoverflow.com/a/2864169/3888050
-    var loc = window.location;
-    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    const loc = window.location;
+    const pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
     return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
 }
 
@@ -299,11 +300,11 @@ populateLinks = function(url, apikey) {
     const path = getAbsolutePath();
 
     if (url) {
-        var shareLink = path+'?url='+encodeURIComponent(url);
+        const shareLink = path + '?url=' + encodeURIComponent(url);
         setLink('share', shareLink);
 
         if (apikey) {
-            var personalLink = path+'?url='+encodeURIComponent(url)+'&apikey='+encodeURIComponent(apikey);
+            const personalLink = path + '?url=' + encodeURIComponent(url) + '&apikey=' + encodeURIComponent(apikey);
             setLink('personal', personalLink);
         } else {
             setLink('personal', null);
@@ -314,7 +315,7 @@ populateLinks = function(url, apikey) {
 }
 
 copyToClipboard = function(type) {
-    var el = $('#'+type+'-link-url');
+    const el = $('#' + type + '-link-url');
     navigator.clipboard.writeText(el.attr("href"));
 }
 
