@@ -2,5 +2,13 @@
   "dependencies": {
     "jquery": "^3.7.0",
     "remarkable": "^2.0.1"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
   }
 }
+
