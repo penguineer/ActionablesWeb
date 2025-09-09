@@ -35,9 +35,10 @@ populateNotes = function(json) {
         ul.append(li);
         console.log(ul);
     }
-    
-    $("#notes").append(ul);
-    $("#notes").addClass("notes");
+
+    const note = $("#notes");
+    note.append(ul);
+    note.addClass("notes");
 }
 
 let assignees = {}
@@ -80,7 +81,7 @@ populateAssignees = function(json) {
         }
     }
 
-    $("#assignees").empty();
+    let assg = $("#assignees").empty();
     for (let id in assignees) {
         let div = $("<div></div>").html(assignees[id].name);
         div.addClass(assignees[id].type);
@@ -90,7 +91,7 @@ populateAssignees = function(json) {
         }
         div.attr("assg", id);
 
-        $("#assignees").append(div);
+        assg.append(div);
         assignees[id]['div'] = div;
 
         div.click(function(event) {
@@ -202,7 +203,7 @@ populateActionables = function(json) {
         const actionable = renderActionable(issue);
         issues[a].div = actionable;
 
-        $("#actionables").append(actionable);
+        ul.append(actionable);
     }
 
     updateActionableVisibility();
