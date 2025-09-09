@@ -1,5 +1,8 @@
+import $ from 'jquery';
+import { Remarkable } from 'remarkable';
+
 // https://www.sitepoint.com/url-parameters-jquery/
-urlParam = function(name){
+const urlParam = function(name){
     const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results==null){
         return null;
@@ -9,7 +12,7 @@ urlParam = function(name){
     }
 }
 
-populateTrackerInfo = function(json) {
+const populateTrackerInfo = function(json) {
     $("#tracker-type").text(json.tracker.type);
 
     const tracker_uri = $("#tracker-uri");
@@ -19,7 +22,7 @@ populateTrackerInfo = function(json) {
     $("#tracker-user-name").text(json.tracker.user_name);
 }
 
-populateNotes = function(json) {
+const populateNotes = function(json) {
     // leave if there are no notes
     if ((! ("notes" in json)) ||
         (Object.keys(json.notes).length === 0)) {
@@ -42,7 +45,7 @@ populateNotes = function(json) {
 }
 
 let assignees = {}
-populateAssignees = function(json) {
+const populateAssignees = function(json) {
     assignees = {}
 
     assignees[0] = {
@@ -114,7 +117,7 @@ populateAssignees = function(json) {
 
 let projects = {};
 let projectDivs = {};
-renderProjects = function(json) {
+const renderProjects = function(json) {
     projects = {}
     projectDivs = {}
 
@@ -136,7 +139,7 @@ renderProjects = function(json) {
     }
 }
 
-renderActionable = function(issue) {
+const renderActionable = function(issue) {
     let md = new Remarkable();
     
     let actionable = $('<div class="actionable"></div>');
@@ -186,7 +189,7 @@ renderActionable = function(issue) {
 }
 
 let issues = {}
-populateActionables = function(json) {
+const populateActionables = function(json) {
     let md = new Remarkable();
 
     issues = {}
@@ -209,7 +212,7 @@ populateActionables = function(json) {
     updateActionableVisibility();
 }
 
-populateResult = function(json) {
+const populateResult = function(json) {
     renderProjects(json)
     populateTrackerInfo(json)
     populateNotes(json)
@@ -217,7 +220,7 @@ populateResult = function(json) {
     populateActionables(json)
 }
 
-updateActionableVisibility = function() {
+const updateActionableVisibility = function() {
     for (let i in issues) {
         const issue = issues[i];
         if (! issue.div)
@@ -233,7 +236,7 @@ updateActionableVisibility = function() {
     }
 }
 
-displayError = function(xhr, status, errorThrown) {
+const displayError = function(xhr, status, errorThrown) {
     $("#errors").prepend(`
     <div class="error">
     <span class="status">`+status+" "+xhr.status+`:</span>
@@ -242,11 +245,11 @@ displayError = function(xhr, status, errorThrown) {
     `);
 }
 
-clearErrors = function() {
+const clearErrors = function() {
     $("#errors").empty();
 }
 
-loadActionables = function(url, apikey, service) {
+const loadActionables = function(url, apikey, service) {
     clearErrors();
     $.ajax({
         url: service,
@@ -271,7 +274,7 @@ loadActionables = function(url, apikey, service) {
     });
 }
 
-setLink = function(type, url) {
+const setLink = function(type, url) {
     const el = $('#' + type + '-link-url');
     const cp = $('#' + type + '-link-copy');
 
@@ -288,7 +291,7 @@ setLink = function(type, url) {
     }
 }
 
-getAbsolutePath = function() {
+const getAbsolutePath = function() {
     // https://stackoverflow.com/a/2864169/3888050
     const loc = window.location;
     const pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
@@ -296,7 +299,7 @@ getAbsolutePath = function() {
 }
 
 
-populateLinks = function(url, apikey) {
+const populateLinks = function(url, apikey) {
     const path = getAbsolutePath();
 
     if (url) {
@@ -314,12 +317,12 @@ populateLinks = function(url, apikey) {
     }
 }
 
-copyToClipboard = function(type) {
+const copyToClipboard = function(type) {
     const el = $('#' + type + '-link-url');
     navigator.clipboard.writeText(el.attr("href"));
 }
 
-configAvailable = function(config) {
+const configAvailable = function(config) {
     const service = config.ACTIONABLES_URL;
     console.log("Using actionable service at " + service);
 
