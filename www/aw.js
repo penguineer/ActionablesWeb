@@ -22,7 +22,7 @@ populateTrackerInfo = function(json) {
 populateNotes = function(json) {
     // leave if there are no notes
     if ((! ("notes" in json)) ||
-        (Object.keys(json.notes).length == 0)) {
+        (Object.keys(json.notes).length === 0)) {
         return;
     }
     
