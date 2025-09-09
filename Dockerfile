@@ -1,5 +1,5 @@
 # build environment
-FROM node:24.4.1-alpine3.21 AS build
+FROM --platform=linux/amd64 node:24.4.1-alpine3.21 AS build_arm64
 
 WORKDIR /app
 
@@ -13,6 +13,10 @@ RUN npm --no-audit --no-fund ci
 COPY . ./
 
 RUN npm run build
+
+# This is here to satiyfy
+# https://docs.docker.com/reference/build-checks/from-platform-flag-const-disallowed/
+FROM build_arm64 as build
 
 # production environment
 FROM httpd:2.4
