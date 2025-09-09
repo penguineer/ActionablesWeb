@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "jquery": "^3.7.0",
+    "remarkable": "^2.0.1"
+  }
+}
