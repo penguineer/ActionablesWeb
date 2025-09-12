@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "github-fork-ribbon-css": "^0.2.3",
     "jquery": "^3.7.0",
     "remarkable": "^2.0.1"
   },
@@ -11,4 +12,3 @@
     "build": "vite build"
   }
 }
-
