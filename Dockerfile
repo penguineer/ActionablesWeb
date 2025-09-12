@@ -32,4 +32,4 @@ COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY www/config.json.template /usr/local/apache2/htdocs/
 COPY --from=build /app/dist /usr/local/apache2/htdocs/
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/usr/bin/entrypoint.sh" ]
