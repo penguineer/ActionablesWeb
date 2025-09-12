@@ -1,3 +1,7 @@
+.github-fork-ribbon:before {
+    background-color: #ed6a5a !important;
+}
+
 body {
     font-family: sans-serif;
     color: #4C4C47;

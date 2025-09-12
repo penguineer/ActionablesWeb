@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { Remarkable } from 'remarkable';
+import 'github-fork-ribbon-css/gh-fork-ribbon.css';
 
 // https://www.sitepoint.com/url-parameters-jquery/
 const urlParam = function(name){
