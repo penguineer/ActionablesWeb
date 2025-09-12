@@ -255,3 +255,8 @@ div.actionable div.project .title::before {
     padding-right: 10px;
 }
 
+/* Optionally show a horizontal scrollbar for wide code blocks */
+div.actionable div.details pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
