@@ -5,7 +5,7 @@
     "remarkable": "^2.0.1"
   },
   "devDependencies": {
-    "vite": "^7.1.12"
+    "vite": "^7.2.6"
   },
   "scripts": {
     "dev": "vite",
