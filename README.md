@@ -54,4 +54,4 @@ If possible, please stick to the following guidelines:
 
 ## License
 
-[MIT](LICENSE.txt) © 2020-2025 Stefan Haun and contributors
+[MIT](LICENSE.txt) © 2020 Stefan Haun and contributors
