@@ -3,7 +3,7 @@
 # Use ARG to satisfy
 # https://docs.docker.com/reference/build-checks/from-platform-flag-const-disallowed/
 ARG NODE_PLATFORM=linux/amd64
-FROM --platform=$NODE_PLATFORM node:25.2-alpine AS build
+FROM --platform=$NODE_PLATFORM node:25.5-alpine AS build
 
 WORKDIR /app
 
