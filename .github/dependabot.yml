@@ -6,6 +6,10 @@ updates:
       interval: "monthly"
     labels:
       - "dependencies"
+    groups:
+      gitub-actions:
+        patterns:
+          - "*"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
